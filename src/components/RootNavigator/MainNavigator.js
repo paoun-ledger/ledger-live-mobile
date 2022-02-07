@@ -42,17 +42,16 @@ export default function MainNavigator({
         name={ScreenName.Portfolio}
         component={Portfolio}
         options={{
+          // unmountOnBlur: true,
           tabBarIcon: (props: any) => <PortfolioTabIcon {...props} />,
         }}
       />
       <Tab.Screen
         name={NavigatorName.Accounts}
         component={AccountsNavigator}
-        listeners={({ route, navigation }) => {
-          return {
-            tabPress: () => navigation.navigate(route.name)
-          }
-        }}
+        listeners={({ route, navigation }) => ({
+          tabPress: () => navigation.navigate(route.name),
+        })}
         options={{
           unmountOnBlur: true,
           tabBarIcon: (props: any) => (

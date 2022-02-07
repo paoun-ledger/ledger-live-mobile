@@ -13,7 +13,7 @@ import {
   useRefreshAccountsOrdering,
   useDistribution,
 } from "../../actions/general";
-import { accountsSelector } from "../../reducers/accounts";
+import { activeAccountsSelector } from "../../reducers/accounts";
 import { counterValueCurrencySelector } from "../../reducers/settings";
 import { usePortfolio } from "../../actions/portfolio";
 import globalSyncRefreshControl from "../../components/globalSyncRefreshControl";
@@ -51,7 +51,7 @@ type Props = {
 };
 
 export default function PortfolioScreen({ navigation }: Props) {
-  const accounts = useSelector(accountsSelector);
+  const accounts = useSelector(activeAccountsSelector);
   const counterValueCurrency = useSelector(counterValueCurrencySelector);
   const portfolio = usePortfolio();
   const { t } = useTranslation();
@@ -97,12 +97,15 @@ export default function PortfolioScreen({ navigation }: Props) {
     portfolio.balanceHistory[portfolio.balanceHistory.length - 1].value > 0;
 
   const flatListRef = useRef();
-  let distribution = useDistribution();
+  const fullDistribution = useDistribution();
   const maxDistributionToDisplay = 3;
-  distribution = {
-    ...distribution,
-    list: distribution.list.slice(0, maxDistributionToDisplay),
-  };
+  const distribution = useMemo(
+    () => ({
+      ...fullDistribution,
+      list: fullDistribution.list.slice(0, maxDistributionToDisplay) || [],
+    }),
+    [fullDistribution],
+  );
   const onDistributionButtonPress = useCallback(() => {
     navigation.navigate(ScreenName.Distribution);
   }, [navigation]);
@@ -163,6 +166,8 @@ export default function PortfolioScreen({ navigation }: Props) {
       t,
     ],
   );
+
+  console.log("WTF Portfolio rerendered");
 
   return (
     <>

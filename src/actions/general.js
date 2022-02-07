@@ -15,7 +15,7 @@ import {
 import { useDistribution as useDistributionCommon } from "@ledgerhq/live-common/lib/portfolio/v2/react";
 import { BehaviorSubject } from "rxjs";
 import { reorderAccounts } from "./accounts";
-import { accountsSelector } from "../reducers/accounts";
+import { activeAccountsSelector } from "../reducers/accounts";
 import {
   counterValueCurrencySelector,
   orderAccountsSelector,
@@ -29,7 +29,7 @@ const extraSessionTrackingPairsChanges: BehaviorSubject<
 > = new BehaviorSubject([]);
 
 export function useDistribution() {
-  const accounts = useSelector(accountsSelector);
+  const accounts = useSelector(activeAccountsSelector);
   const to = useSelector(counterValueCurrencySelector);
   return useDistributionCommon({ accounts, to });
 }
@@ -47,7 +47,7 @@ export function useSortAccountsComparator() {
 }
 
 export function useFlattenSortAccounts(options?: FlattenAccountsOptions) {
-  const accounts = useSelector(accountsSelector);
+  const accounts = useSelector(activeAccountsSelector);
   const comparator = useSortAccountsComparator();
   return useMemo(() => flattenSortAccounts(accounts, comparator, options), [
     accounts,
@@ -146,7 +146,7 @@ export function useExtraSessionTrackingPair() {
 }
 
 export function useTrackingPairs(): TrackingPair[] {
-  const accounts = useSelector(accountsSelector);
+  const accounts = useSelector(activeAccountsSelector);
   const countervalue = useSelector(counterValueCurrencySelector);
   const trPairs = useTrackingPairForAccounts(accounts, countervalue);
   const extraSessionTrackingPairs = useExtraSessionTrackingPair();

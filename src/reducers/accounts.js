@@ -113,6 +113,12 @@ export const exportSelector = (s: *) => ({
 
 export const accountsSelector = (s: *): Account[] => s.accounts.active;
 
+// $FlowFixMe
+export const activeAccountsSelector = createSelector(
+  s => s.accounts,
+  accounts => accounts.active,
+);
+
 export const migratableAccountsSelector = (s: *): Account[] =>
   s.accounts.active.filter(canBeMigrated);
 
