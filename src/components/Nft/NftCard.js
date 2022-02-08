@@ -1,10 +1,12 @@
 // @flow
 
 import React, { memo } from "react";
+import isEqual from "lodash/isEqual";
 import { RectButton } from "react-native-gesture-handler";
 import { View, StyleSheet, Platform } from "react-native";
 import { useNftMetadata } from "@ledgerhq/live-common/lib/nft";
 import { useTheme, useNavigation } from "@react-navigation/native";
+import { toNFTRaw } from "@ledgerhq/live-common/lib/account/serialization";
 import type { CollectionWithNFT, NFT } from "@ledgerhq/live-common/lib/nft";
 import { NavigatorName, ScreenName } from "../../const";
 import Skeleton from "../Skeleton";
@@ -141,4 +143,36 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo<Props>(NftCard);
+export default memo(NftCard, (prevProps, nextProps) => {
+  if (!isEqual(toNFTRaw(prevProps.nft), toNFTRaw(nextProps.nft))) {
+    console.log("NFT CARD rerendered because of NFT", {
+      nft: {
+        prev: toNFTRaw(prevProps.nft),
+        next: toNFTRaw(nextProps.nft),
+      },
+    });
+    return true;
+  }
+
+  if (prevProps.collection !== nextProps.collection) {
+    console.log("NFT CARD rerendered because of collection", {
+      collection: {
+        prev: prevProps.collection,
+        next: nextProps.collection,
+      },
+    });
+    return true;
+  }
+
+  if (!isEqual(prevProps.style, nextProps.style)) {
+    console.log("NFT CARD rerendered because of style", {
+      style: {
+        prev: prevProps.style,
+        next: nextProps.style,
+      },
+    });
+    return true;
+  }
+
+  return false;
+});

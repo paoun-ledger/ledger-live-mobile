@@ -1,8 +1,9 @@
 // @flow
 import React, { useCallback, useMemo, useState, memo } from "react";
-
+import isEqual from "lodash/isEqual";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { useNftMetadata } from "@ledgerhq/live-common/lib/nft";
+import { toNFTRaw } from "@ledgerhq/live-common/lib/account/serialization";
 import {
   View,
   StyleSheet,
@@ -24,6 +25,57 @@ import { ScreenName } from "../../const";
 
 const MAX_COLLECTIONS_FIRST_RENDER = 8;
 const COLLECTIONS_TO_ADD_ON_LIST_END_REACHED = 8;
+
+const collectionRowIsEqual = (prevProps, nextProps) => {
+  const { contract: prevContract, nfts: prevNfts } = prevProps?.collection;
+  const { contract: nextContract, nfts: nextNfts } = nextProps?.collection;
+
+  if (prevProps.account !== nextProps.account) {
+    console.log("SEND COLLECTION ROW rerendered because of account", {
+      account: {
+        prev: prevProps.account,
+        next: nextProps.account,
+      },
+    });
+    return true;
+  }
+
+  if (prevContract !== nextContract) {
+    console.log(
+      "SEND COLLECTION ROW rerendered because of collection contract",
+      {
+        collection: {
+          prev: prevContract,
+          next: nextContract,
+        },
+      },
+    );
+    return true;
+  }
+
+  if (!isEqual(prevNfts?.map(toNFTRaw), nextNfts?.map(toNFTRaw))) {
+    console.log(
+      "SEND COLLECTION ROW rerendered because of collection nfts",
+      JSON.stringify(
+        {
+          collection: {
+            prev: prevNfts?.map(toNFTRaw),
+            next: nextNfts?.map(toNFTRaw),
+          },
+          collectionLength: {
+            prev: prevNfts?.length,
+            next: nextNfts?.length,
+          },
+        },
+        null,
+        2,
+      ),
+    );
+    return true;
+  }
+
+  return false;
+};
 
 const CollectionRow = memo(
   ({
@@ -70,6 +122,7 @@ const CollectionRow = memo(
       </TouchableOpacity>
     );
   },
+  collectionRowIsEqual,
 );
 
 const keyExtractor = (collection: CollectionWithNFT) => collection?.contract;

@@ -19,6 +19,7 @@ const NftNavigator = () => {
         name={ScreenName.NftViewer}
         component={NftViewer}
         options={{
+          unmountOnBlur: true,
           headerShown: false,
         }}
       />

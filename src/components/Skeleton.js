@@ -1,6 +1,7 @@
 // @flow
 
 import React, { memo, useRef, useEffect } from "react";
+import isEqual from "lodash/isEqual";
 import { Animated } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
@@ -57,4 +58,19 @@ const Skeleton = ({
   );
 };
 
-export default memo<Props>(Skeleton);
+// export default memo(Skeleton, (prevProps, nextProps) => {
+//   if (prevProps.children !== nextProps.children) {
+//     return true;
+//   }
+//   const {
+//     children: prevPropsChildren,
+//     ...prevPropsWithoutChildren
+//   } = prevProps;
+//   const {
+//     children: nextPropsChildren,
+//     ...nextPropsWithoutChildren
+//   } = nextProps;
+
+//   return !isEqual(prevPropsWithoutChildren, nextPropsWithoutChildren);
+// });
+export default memo(Skeleton);

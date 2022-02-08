@@ -1,9 +1,11 @@
 // @flow
 
-import React, { useCallback } from "react";
-import type { NFT, CollectionWithNFT } from "@ledgerhq/live-common/lib/nft";
-import { FlatList, View, SafeAreaView, StyleSheet } from "react-native";
+import React, { useCallback, memo } from "react";
+import isEqual from "lodash/isEqual";
 import { useNftMetadata } from "@ledgerhq/live-common/lib/nft";
+import { FlatList, View, SafeAreaView, StyleSheet } from "react-native";
+import { toNFTRaw } from "@ledgerhq/live-common/lib/account/serialization";
+import type { NFT, CollectionWithNFT } from "@ledgerhq/live-common/lib/nft";
 import NftCard from "../../../components/Nft/NftCard";
 import Skeleton from "../../../components/Skeleton";
 import LText from "../../../components/LText";
@@ -84,4 +86,49 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NftCollectionWithName;
+export default memo(NftCollectionWithName, (prevProps, nextProps) => {
+  const {
+    contract: prevContract,
+    nfts: prevNfts,
+  } = prevProps?.collectionWithNfts;
+  const {
+    contract: nextContract,
+    nfts: nextNfts,
+  } = nextProps?.collectionWithNfts;
+
+  if (prevContract !== nextContract) {
+    console.log(
+      "NFT COLLECTION WITH NAME rerendered because of collectionWithNfts contract",
+      {
+        collectionWithNfts: {
+          prev: prevContract,
+          next: nextContract,
+        },
+      },
+    );
+    return true;
+  }
+
+  if (!isEqual(prevNfts?.map(toNFTRaw), nextNfts?.map(toNFTRaw))) {
+    console.log(
+      "NFT COLLECTION WITH NAME rerendered because of collectionWithNfts nfts",
+      JSON.stringify(
+        {
+          collectionWithNfts: {
+            prev: prevNfts?.map(toNFTRaw),
+            next: nextNfts?.map(toNFTRaw),
+          },
+          collectionWithNftsLength: {
+            prev: prevNfts?.length,
+            next: nextNfts?.length,
+          },
+        },
+        null,
+        2,
+      ),
+    );
+    return true;
+  }
+
+  return false;
+});

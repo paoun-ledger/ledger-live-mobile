@@ -108,6 +108,8 @@ class NftImage extends React.PureComponent<Props, State> {
         : src;
     })();
 
+    console.log("NFT Image Re-renderered");
+
     return (
       <View style={[style, styles.root]}>
         <Skeleton style={styles.skeleton} loading={true} />
