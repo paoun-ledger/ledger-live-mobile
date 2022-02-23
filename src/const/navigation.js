@@ -42,6 +42,7 @@ export const ScreenName = {
   DebugPlayground: "DebugPlayground",
   DebugSettings: "DebugSettings",
   DebugStore: "DebugStore",
+  DebugEnv: "DebugEnv",
   DelegationConnectDevice: "DelegationConnectDevice",
   DelegationSelectDevice: "DelegationSelectDevice",
   DelegationSelectValidator: "DelegationSelectValidator",
@@ -192,7 +193,7 @@ export const ScreenName = {
   CosmosClaimRewardsValidationError: "CosmosClaimRewardsValidationError",
   CosmosClaimRewardsValidationSuccess: "CosmosClaimRewardsValidationSuccess",
 
-  //crypto_org
+  // crypto_org
   CryptoOrgEditMemo: "CryptoOrgEditMemo",
 
   AlgorandEditMemo: "AlgorandEditMemo",
@@ -317,6 +318,10 @@ export const ScreenName = {
   RequestAccountsSelectCrypto: "RequestAccountsSelectCrypto",
   RequestAccountsSelectAccount: "RequestAccountsSelectAccount",
 
+  MarketList: "MarketList",
+  MarketCurrencySelect: "MarketCurrencySelect",
+  MarketDetail: "MarketDetail",
+
   VerifyAccount: "VerifyAccount",
 
   // solana
@@ -379,6 +384,7 @@ export const NavigatorName = {
   PolkadotSimpleOperationFlow: "PolkadotSimpleOperationFlow",
 
   NotificationCenter: "NotificationCenter",
+  Market: "Market",
 
   // Tab
   Main: "Main",
