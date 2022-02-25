@@ -14,36 +14,41 @@ jobs:
   ios:
     runs-on: macos-latest
     steps:
-      - name: checkout PR
+      - name: Checkout PR
         uses: actions/checkout@v2
         with:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
-      - uses: actions/setup-node@master
+      - name: Setup Node
+        uses: actions/setup-node@master
         with:
           node-version: 14.x
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6 # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v1
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install dependencies
-        run: yarn
       - name: Install applesimutils
         run: |
           brew tap wix/brew
           brew install applesimutils
-      - name: Build
+      # - name: Get yarn cache
+      #   id: yarn-cache
+      #   run: echo "::set-output name=dir::$(yarn cache dir)"
+      # - uses: actions/cache@v1
+      #   with:
+      #     path: ${{ steps.yarn-cache.outputs.dir }}
+      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-yarn-
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
+        run: yarn
+      - name: Build iOS app for detox test run
         run: yarn e2e:build -c ios.staging
-      - name: Test
+      - name: Test iOS app
         run: yarn e2e:test -c ios.staging
   android:
     runs-on: macos-latest
@@ -51,16 +56,17 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: checkout PR
+      - name: Checkout PR
         uses: actions/checkout@v2
         with:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
-      - uses: actions/setup-node@main
+      - name: Setup Node
+        uses: actions/setup-node@main
         with:
           node-version: 14.x
           cache: yarn
-      - name: get yarn cache
+      - name: Get yarn cache
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - uses: actions/cache@v2
@@ -80,9 +86,9 @@ jobs:
       - name: Install node dependencies
         run: |
           yarn install --frozen-lockfile
-      - name: Build
+      - name: Build Android app for Detox test run
         run: yarn detox build -c android.staging-ci
-      - name: Run
+      - name: Test Android app (with Test Butler)
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30
