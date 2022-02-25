@@ -19,9 +19,6 @@ jobs:
         with:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
-        # run: gh pr checkout ${{ github.event.issue.number || github.event.inputs.prNumber }}
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-node@master
         with:
           node-version: 14.x
@@ -55,9 +52,10 @@ jobs:
         with:
           fetch-depth: 0
       - name: checkout PR
-        run: gh pr checkout ${{ github.event.issue.number || github.event.inputs.prNumber }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/checkout@v2
+        with:
+          ref: ${{github.event.pull_request.head.ref}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
       - uses: actions/setup-node@main
         with:
           node-version: 14.x
