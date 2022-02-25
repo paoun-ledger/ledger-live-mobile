@@ -85,7 +85,7 @@ jobs:
       - name: Run
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: 30
           avd-name: Nexus_5_API_30
           script: |
             mkdir ./temp

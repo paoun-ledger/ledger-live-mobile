@@ -4,7 +4,10 @@ import PortfolioPage from "../models/portfolioPage";
 import { expectBitmapsToBeEqual } from "../helpers";
 
 describe("Onboarding", () => {
-  const snapshottedImagePath =
+  const androidSnapshottedImagePath =
+    "e2e/artifacts/android.debug.2022-02-24 22-55-35Z/✗ Onboarding should be able to connect a Nano X/nanoX-onboarding-snapshot.png";
+
+  const iosSnapshottedImagePath =
     "e2e/artifacts/android.debug.2022-02-24 22-55-35Z/✗ Onboarding should be able to connect a Nano X/nanoX-onboarding-snapshot.png";
 
   beforeAll(async () => {
@@ -28,6 +31,12 @@ describe("Onboarding", () => {
     await PortfolioPage.emptyPortfolioIsVisible();
 
     const image = await device.takeScreenshot("nanoX-onboarding-snapshot");
+
+    let snapshottedImagePath;
+
+    device.getPlatform() === "ios"
+      ? (snapshottedImagePath = iosSnapshottedImagePath)
+      : (snapshottedImagePath = androidSnapshottedImagePath);
 
     expectBitmapsToBeEqual(image, snapshottedImagePath);
   });
