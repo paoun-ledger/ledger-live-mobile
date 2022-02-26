@@ -1,8 +1,7 @@
-// @flow
-import { loadConfig } from "../bridge/server";
-import { delay, retryAction } from "../helpers";
+// import { loadConfig } from "../bridge/server";
+// import { delay, retryAction } from "../helpers";
 
-const { device, element, by, waitFor } = require("detox");
+// const { device, element, by, waitFor } = require("detox");
 
 // describe("Navigation while syncing - performance test", () => {
 //   beforeAll(async () => {

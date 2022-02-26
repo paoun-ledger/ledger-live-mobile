@@ -32,6 +32,6 @@ describe("Password Lock Screen", () => {
     await PasswordEntryPage.enterPassword(CORRECT_PASSWORD);
     await PasswordEntryPage.login();
 
-    await GeneralSettingsPage.IsVisible();
+    await GeneralSettingsPage.isVisible();
   });
 });
