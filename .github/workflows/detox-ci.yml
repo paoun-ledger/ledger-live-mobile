@@ -99,7 +99,7 @@ jobs:
       - name: Test Android app (with Test Butler)
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 30
+          api-level: 29
           avd-name: Nexus_5_API_30
           script: |
             mkdir ./temp
@@ -116,4 +116,4 @@ jobs:
         with:
           name: test-artifacts
           path: |
-            e2e/artifacts/
+            e2e/artifacts
