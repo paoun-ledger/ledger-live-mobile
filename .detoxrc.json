@@ -45,7 +45,7 @@
       "build": "cd android && ENVFILE=.env.mock ./gradlew assembleStagingRelease assembleAndroidTest -DtestBuildType=stagingRelease -PwithTestButler --warning-mode all && cd ..",
       "type": "android.emulator",
       "device": {
-        "avdName": "emu"
+        "avdName": "Nexus_5_API_30"
       }
     }
   }

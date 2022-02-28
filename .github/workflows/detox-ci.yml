@@ -19,6 +19,10 @@ jobs:
         with:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
+      - name: PWD
+        run: pwd
+      - name: LS
+        run: ls -a
       - name: Setup Node
         uses: actions/setup-node@master
         with:
@@ -106,10 +110,6 @@ jobs:
             curl -f -o ./temp/test-butler-app.apk https://repo1.maven.org/maven2/com/linkedin/testbutler/test-butler-app/2.2.1/test-butler-app-2.2.1.apk
             adb install ./temp/test-butler-app.apk || adb install ./e2e/test-butler-app.apk
             yarn detox test -c android.staging-ci --record-timeline all --take-screenshots failing
-      - name: PWD
-        run: echo $(pwd)
-      - name: LS
-        run: echo $(ls -a)
       - name: upload test artifacts
         if: always()
         uses: actions/upload-artifact@v2
