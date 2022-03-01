@@ -19,7 +19,7 @@ jobs:
   #       run: 
 
   ios:
-    needs: [prepare-test-run]
+    # needs: [prepare-test-run]
     runs-on: macos-latest
     steps:
       - name: Checkout PR
