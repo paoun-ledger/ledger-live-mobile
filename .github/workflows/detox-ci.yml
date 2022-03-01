@@ -64,6 +64,13 @@ jobs:
         run: yarn detox build -c ios.staging
       - name: Test iOS app
         run: yarn start & yarn detox test -c ios.staging --record-timeline all --take-screenshots failing
+      - name: upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-artifacts
+          path: |
+            e2e/artifacts
         
   android:
     runs-on: macos-latest
