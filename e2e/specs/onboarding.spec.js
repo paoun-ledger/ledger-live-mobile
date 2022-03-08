@@ -17,15 +17,15 @@ describe("Onboarding", () => {
     await OnboardingSteps.selectDevice("nanoX");
     await OnboardingSteps.connectYourNano("nanoX");
     await OnboardingSteps.acceptSeedWarning();
-    await OnboardingSteps.startPairing();
-    await OnboardingSteps.addNewNano();
-    await OnboardingSteps.addDeviceViaBluetooth();
-    await OnboardingSteps.openLedgerLive();
+    // await OnboardingSteps.startPairing();
+    // await OnboardingSteps.addNewNano();
+    // await OnboardingSteps.addDeviceViaBluetooth();
+    // await OnboardingSteps.openLedgerLive();
 
-    await PortfolioPage.emptyPortfolioIsVisible();
+    // await PortfolioPage.emptyPortfolioIsVisible();
 
-    const image = await device.takeScreenshot("nanoX-onboarding-snapshot");
-    const snapshottedImagePath = `e2e/specs/snapshots/${device.getPlatform()}-nanoX-onboarding-snapshot.png`;
-    expectBitmapsToBeEqual(image, snapshottedImagePath);
+    // const image = await device.takeScreenshot("nanoX-onboarding-snapshot");
+    // const snapshottedImagePath = `e2e/specs/snapshots/${device.getPlatform()}-nanoX-onboarding-snapshot.png`;
+    // expectBitmapsToBeEqual(image, snapshottedImagePath);
   });
 });
