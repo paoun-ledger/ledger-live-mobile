@@ -31,7 +31,6 @@ export default class OnboardingSteps {
   static async acceptSeedWarning() {
     await testHelpers.delay(1000);
     await testHelpers.tap("Onboarding - Seed warning");
-    await testHelpers.delay(1000);
   }
 
   static async startPairing() {
