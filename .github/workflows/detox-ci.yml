@@ -74,7 +74,7 @@ jobs:
       - name: Build iOS app for detox test run
         run: yarn detox build -c ios.staging
       - name: Test iOS app
-        run: yarn start & yarn detox test -c ios.staging --record-timeline all --take-screenshots failing
+        run: yarn start & yarn detox test -c ios.staging --loglevel verbose --record-timeline all --take-screenshots failing
       - name: upload test artifacts
         if: always()
         uses: actions/upload-artifact@v2
@@ -149,7 +149,7 @@ jobs:
             mkdir ./temp
             curl -f -o ./temp/test-butler-app.apk https://repo1.maven.org/maven2/com/linkedin/testbutler/test-butler-app/2.2.1/test-butler-app-2.2.1.apk
             adb install ./temp/test-butler-app.apk || adb install ./e2e/test-butler-app.apk
-            yarn start & yarn detox test -c android.staging-ci --record-timeline all --take-screenshots failing
+            yarn start & yarn detox test -c android.staging-ci  --loglevel verbose --record-timeline all --take-screenshots failing
       - name: upload test artifacts
         if: always()
         uses: actions/upload-artifact@v2
