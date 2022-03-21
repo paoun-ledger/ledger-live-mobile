@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if ! [ -d node_modules/@ledgerhq/live-common ]; then
+  echo 'LLM is not the root project, no need to run postinstall'
+  exit 0
+fi
+
 cd $(dirname $0)/..
 
 ./scripts/sync-families-dispatch.sh
