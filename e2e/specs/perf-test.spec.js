@@ -13,7 +13,7 @@ describe.skip("Navigation while syncing - performance test", () => {
     });
   });
 
-  it("should import accounts", async () => {
+  it.skip("should import accounts", async () => {
     const initialTime = Date.now();
     await device.disableSynchronization();
 

@@ -2,7 +2,7 @@ import { waitFor, element, by } from "detox";
 
 import { readFileSync } from "fs";
 
-const DEFAULT_TIMEOUT = 5000;
+const DEFAULT_TIMEOUT = 30000;
 
 export async function waitAndTap(elementId, timeout) {
   await waitFor(element(by.id(elementId)))

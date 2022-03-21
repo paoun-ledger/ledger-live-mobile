@@ -17,7 +17,7 @@ describe("Password Lock Screen", () => {
   });
 
   it("should be able to enter the correct password", async () => {
-    loadConfig("1AccountBTC1AccountETH", true);
+    await loadConfig("1AccountBTC1AccountETH", true);
 
     await PortfolioPage.navigateToSettings();
     await SettingsPage.navigateToGeneralSettings();

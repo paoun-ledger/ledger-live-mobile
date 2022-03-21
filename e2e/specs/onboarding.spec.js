@@ -1,4 +1,5 @@
 import { device } from "detox";
+import { loadConfig } from "../bridge/server";
 import OnboardingSteps from "../models/onboarding/onboardingSteps";
 import PortfolioPage from "../models/portfolioPage";
 import { expectBitmapsToBeEqual } from "../helpers";
@@ -12,6 +13,8 @@ describe("Onboarding", () => {
   });
 
   it("should be able to connect a Nano X", async () => {
+    // await loadConfig("freshApp", true);
+
     await OnboardingSteps.getStarted();
     await OnboardingSteps.acceptTerms();
     await OnboardingSteps.selectDevice("nanoX");
