@@ -12,7 +12,7 @@ const CORRECT_PASSWORD = "passWORD$123!";
 describe("Password Lock Screen", () => {
   beforeAll(async () => {
     await device.launchApp({
-      delete: true,
+      // delete: true,
     });
   });
 

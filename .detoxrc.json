@@ -27,7 +27,7 @@
       "build": "cd android && ENVFILE=.env.mock ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd ..",
       "type": "android.emulator",
       "device": {
-        "avdName": "Nexus_5_API_30"
+        "avdName": "Pixel_XL_API_30"
       }
     },
     "android.staging": {
@@ -36,7 +36,7 @@
       "build": "cd android && ENVFILE=.env.mock ./gradlew assembleStagingRelease assembleAndroidTest -DtestBuildType=stagingRelease && cd ..",
       "type": "android.emulator",
       "device": {
-        "avdName": "Nexus_5_API_30"
+        "avdName": "Pixel_XL_API_30"
       }
     },
     "android.staging-ci": {
@@ -45,7 +45,7 @@
       "build": "cd android && ENVFILE=.env.mock ./gradlew assembleStagingRelease assembleAndroidTest -DtestBuildType=stagingRelease -PwithTestButler --warning-mode all && cd ..",
       "type": "android.emulator",
       "device": {
-        "avdName": "Nexus_5_API_30"
+        "avdName": "Pixel_XL_API_30"
       }
     }
   }
