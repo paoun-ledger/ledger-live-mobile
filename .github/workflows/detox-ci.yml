@@ -88,6 +88,7 @@ jobs:
         run: yarn detox build -c ios.staging
 
       - name: Test iOS app
+        timeout-minutes: 15
         run: yarn start & yarn detox test -c ios.staging --loglevel verbose --record-logs failing --record-timeline all --take-screenshots failing --retries 1 --reuse --cleanup
 
       - name: upload test artifacts
@@ -162,6 +163,7 @@ jobs:
         run: yarn detox build -c android.staging-ci
 
       - name: Test Android app (with Test Butler)
+        timeout-minutes: 15
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
@@ -171,7 +173,7 @@ jobs:
             curl -f -o ./temp/test-butler-app.apk https://repo1.maven.org/maven2/com/linkedin/testbutler/test-butler-app/2.2.1/test-butler-app-2.2.1.apk
             adb install ./temp/test-butler-app.apk || adb install ./e2e/test-butler-app.apk
             yarn start & yarn detox test -c android.staging-ci  --loglevel verbose --record-logs failing --record-timeline all --take-screenshots failing --retries 1 --reuse --cleanup
-            
+
       - name: upload test artifacts
         if: always()
         uses: actions/upload-artifact@v2
